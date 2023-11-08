@@ -491,7 +491,7 @@ fillInfoButton2.addEventListener("click", function() {
                     if (sheetData[i][productNameColumnIndex] === productName) {
                         const dvtIndex = sheetData[0].indexOf("Nhà cung cấp");
                         const giaGocIndex = sheetData[0].indexOf("Giá nhập");
-                        const giaBanIndex = sheetData[0].indexOf("Đơn giá ");
+                        const giaBanIndex = sheetData[0].indexOf("Đơn giá");
 
                         if (dvtIndex !== -1) {
                             dvtInput2.value = sheetData[i][dvtIndex] || "";
