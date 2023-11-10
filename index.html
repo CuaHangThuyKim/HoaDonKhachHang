@@ -321,7 +321,7 @@
 </head>
 <body>
     <div id="header">
-        <h2 style="margin-right: 5% ;color: aliceblue;"><a href="https://cuahangthuykim.github.io/TrangChu/"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
+        <h2 style="margin-right: 5% ;color: aliceblue;"><a href="URL-cua-lien-ket"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
         <h2 ><a href="https://cuahangthuykim.github.io/HoaDonKhachHang/"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
         <h2  style="margin-left:5%"  ><a href="https://cuahangthuykim.github.io/ToaHang/"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
         <h2  ><a href="URL-cua-lien-ket"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>
@@ -808,7 +808,7 @@ const currentTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
     products.forEach((product) => {
         invoiceHTML += `
             <tr style="text-align: center;">
-                <td style="text-align: center;" class="invoice-cell">${product.name}</td>
+                <td style="text-align: center;" class="invoice-cell">${product.unit}</td>
                 <td style="text-align: center;" class="invoice-cell">${product.quantity.toLocaleString()}</td>
                 <td style="text-align: center;" class="invoice-cell">${product.unitPrice.toLocaleString()}</td>
                 <td style="text-align: center;" class="invoice-cell">${product.totalPrice.toLocaleString()}</td>        
@@ -838,7 +838,7 @@ const currentTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
 
         
     // Tạo cửa sổ mới và hiển thị thông tin hoá đơn
-    const newWindow = window.open('', '', 'width=600,height=400');
+    const newWindow = window.open('', '', 'width=fit-content,height=fit-content');
     newWindow.document.write(invoiceHTML);
 
     // Định dạng border đậm cho các ô thông tin hoá đơn và tiêu đề
