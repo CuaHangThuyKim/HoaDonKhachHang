@@ -322,8 +322,9 @@
 <body>
     <div id="header">
         <h2 style="margin-right: 5% ;color: aliceblue;"><a href="URL-cua-lien-ket"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
-        <h2 ><a href="URL-cua-lien-ket"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
-        <h2  style="margin-left:5%"  ><a href="URL-cua-lien-ket"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
+        <h2 ><a href="https://cuahangthuykim.github.io/HoaDonKhachHang/"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
+        <h2  style="margin-left:5%"  ><a href="https://cuahangthuykim.github.io/ToaHang/"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
+        <h2  ><a href="URL-cua-lien-ket"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>
     </div>
     <div id="tinhtienvadoitien">
     <div id="tinhTien">
@@ -909,69 +910,7 @@ copyElements.forEach((element) => {
     });
 });
 
-const fillInfoButton3 = document.getElementById("fill-info3");
 
-fillInfoButton3.addEventListener("click", function() {
-    const excelFileInput = document.getElementById("excelFileInput");
-
-    if (excelFileInput.files.length === 0) {
-        alert("Vui lòng tải lên ít nhất một tệp Excel trước.");
-        return;
-    }
-
-    const files = excelFileInput.files;
-
-    // Tạo một danh sách để lưu trữ thông tin cột "Tên hàng hoá"
-    const productNameList = [];
-
-    // Xử lý từng tệp Excel trong danh sách các tệp được chọn
-    for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-
-        if (file) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const data = e.target.result;
-                const workbook = XLSX.read(data, { type: "array" });
-                const sheetName = workbook.SheetNames[0];
-                const sheet = workbook.Sheets[sheetName];
-                const range = sheet['!ref'];
-                const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
-
-                // Tìm cột có tiêu đề "Tên hàng hoá"
-                const productNameColumnIndex = sheetData[0].indexOf("Tên hàng hoá");
-
-                if (productNameColumnIndex === -1) {
-                    console.log("Không tìm thấy cột có tiêu đề 'Tên hàng hoá' trong tệp Excel.");
-                    return;
-                }
-
-                // Lặp qua dữ liệu để lấy thông tin "Tên hàng hoá" và thêm vào danh sách
-                for (let i = 1; i < sheetData.length; i++) {
-                    const productName = sheetData[i][productNameColumnIndex];
-                    if (productName && !productNameList.includes(productName)) {
-                        productNameList.push(productName);
-                    }
-                }
-
-                // Đưa thông tin vào datalist có id ='customerList'
-                const datalist = document.getElementById("customerList");
-                datalist.innerHTML = ""; // Xóa thông tin cũ trước khi thêm mới
-
-                productNameList.forEach(productName => {
-                    const option = document.createElement("option");
-                    option.value = productName;
-                    datalist.appendChild(option);
-                });
-
-                console.log("Thông tin cột 'Tên hàng hoá' đã được cập nhật vào datalist.");
-            };
-
-            reader.readAsArrayBuffer(file);
-        }
-    }
-});
 //ghi âm mã hàng
 if ('webkitSpeechRecognition' in window) {
     const recognition = new webkitSpeechRecognition();
