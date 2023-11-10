@@ -13,6 +13,7 @@
 
     <title>TÍNH HOÁ ĐƠN</title>
     <style>
+  
         body{
             background-color:rgb(24,33,46);
            
@@ -266,13 +267,63 @@
             opacity: 0.5;
            
         }
+
+        #startRecord1:hover{
+            opacity: 0.6;
+        }
+        #startRecord1:active{
+            background-color: red;
+        }
+        #stopRecord1:hover{
+            opacity: 0.6;
+        }
+        #stopRecord1:active{
+            background-color: green;
+        }
+        
+        #startRecord2:hover{
+            opacity: 0.6;
+        }
+        #startRecord2:active{
+            background-color: red;
+        }
+        #stopRecord2:hover{
+            opacity: 0.6;
+        }
+        #stopRecord2:active{
+            background-color: green;
+        }
+        #startRecord,#startRecord1,#startRecord2,#startRecord3,#startRecord4,#startRecord5,#startRecord6{
+            background-color: rgb(189, 203, 214);
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+        #stopRecord,#stopRecord1,#stopRecord2,#stopRecord3,#stopRecord4,#stopRecord6,#stopRecord5{
+            background-color: rgb(189, 203, 214);
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #startRecord:hover{
+            opacity: 0.6;
+        }
+        #startRecord:active{
+            background-color: red;
+        }
+        #stopRecord:hover{
+            opacity: 0.6;
+        }
+        #stopRecord:active{
+            background-color: green;
+        }
     </style>
 </head>
 <body>
     <div id="header">
-        <h2 style="margin-right: 5% ;color: aliceblue;"><a href="https://cuahangthuykim.github.io/TrangChu/">TRANG CHỦ</a></h2>
-      <h2 ><a href="https://cuahangthuykim.github.io/HoaDonKhachHang/">TÍNH HOÁ ĐƠN KHÁCH</a></h2>
-        <h2  style="margin-left:5%"  ><a href="https://cuahangthuykim.github.io/ToaHang/">LÀM TOA HÀNG</a></h2>
+        <h2 style="margin-right: 5% ;color: aliceblue;"><a href="URL-cua-lien-ket"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
+        <h2 ><a href="URL-cua-lien-ket"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
+        <h2  style="margin-left:5%"  ><a href="URL-cua-lien-ket"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
     </div>
     <div id="tinhtienvadoitien">
     <div id="tinhTien">
@@ -281,36 +332,54 @@
         <input type="file" id="excelFileInput" accept=".xlsx" multiple>
         <button style="border-radius: 15px" id="fill-info-excel">CẬP NHẬT GIÁ HÀNG</button>        
     </div>
-    <form id="productForm">
-        <div class="form-group">
-            <label for="productName">Tên hàng hoá:</label>
-            <input type="text" id="productName" list="productList" placeholder="Chọn hoặc nhập tên" required>
-                <datalist style="font-weight: bold;cursor: pointer;" id="productList">
-               
-                </datalist><br>
-        </div>
+    <div class="form-group">
+        <label for="productID">KHÁCH HÀNG</label>
+        <input type="text" id="productID" list="productIDList" placeholder="Chọn hoặc nhập tên" required>
+            <datalist style="font-weight: bold;cursor: pointer;" id="productIDList">
+           
+            </datalist><br>
+    </div>
+    <div class="form-group">
+        <label for="productName">MÃ HÀNG HOÁ:</label>
+        <input type="text" id="productName" list="productList" placeholder="Chọn hoặc nhập tên" required>
+            <datalist style="font-weight: bold;cursor: pointer;" id="productList">
+           
+            </datalist><br>
+            <button id="startRecord1"><i class="fa-solid fa-microphone" style="color: #6f7785;"></i></button>
+            <button id="stopRecord1"><i class="fa-solid fa-stop" style="color: #848c9a;"></i></button>
+    </div>
+    <button id="fill-info2"style="margin-left:40%;height:30PX;font-weight:bold">ĐIỀN THÔNG TIN THEO MÃ</button><br><br>
+    <div class="form-group">
+        <label for="unit">TÊN HÀNG HOÁ</label>
+        <input type="text" list="customerList" id="unit" placeholder="Tên hàng hoá" required >
+        <datalist style="font-weight: bold; cursor: pointer;" id="customerList">
+            <!-- Các option sẽ được thêm tự động bởi mã JavaScript -->
+        </datalist><br>
+        <button id="startRecord2"><i class="fa-solid fa-microphone" style="color: #6f7785;"></i></button>
+        <button id="stopRecord2"><i class="fa-solid fa-stop" style="color: #848c9a;"></i></button>
+    </div>
+    
+        
+        
         <button id="fill-info" style="display: none;">Cập nhật theo form sẵn<i class="fa-solid fa-utensils"></i></button>
-        <button id="fill-info2"style="margin-left:40%;height:30PX;font-weight:bold">TỰ ĐỘNG ĐIỀN THÔNG TIN</button><br>
-        <div class="form-group">
-            <label for="unit">NHÀ CUNG CẤP:</label>
-            <input type="text" id="unit" required placeholder="Nhập đơn vị tính">
-        </div>
+       
+        
         
         <div class="form-group">
             <label for="quantity">Số lượng:</label>
             <input type="number" id="quantity" placeholder="Nhập số lượng đơn hàng"required>
         </div>
-        <div class="form-group">
+        <div  style="display: none;" class="form-group">
             <label for="originalPrice">Giá nhập:</label>
             <input type="number" id="originalPrice" placeholder="Nhập giá gốc" required>
         </div>
         
-        <div class="form-group">
+        <div  class="form-group">
             <label for="unitPrice">Đơn giá:</label>
             <input type="number" id="unitPrice"placeholder="Nhập giá bán" required>
         </div>
         
-        <div class="form-group">
+        <div  style="display: none;" class="form-group">
             <label for="discountPercentage">Chiết khấu (%):</label>
             <input type="number" id="discountPercentage" placeholder="Nhập(Nếu có )" required>
         </div>
@@ -355,15 +424,16 @@
     <table>
         <thead >
             <tr>
-                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Tên hàng hoá</th>
-                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Nhà cung cấp</th>
+                
+                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">MÃ HÀNG HOÁ</th>
+                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">TÊN HÀNG HOÁ </th>
                 <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Số lượng</th>
-                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Giá gốc</th>
+                <th style="display: none;text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Giá gốc</th>
                 <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Đơn bán</th>
                 <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Thành tiền</th>
-                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Chiết khấu</th>
-                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Giá tiền sau chiết khấu</th>
-                <th style="text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Lợi nhuận</th>
+                <th style="display: none;text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Chiết khấu</th>
+                <th style="display: none;text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Giá tiền sau chiết khấu</th>
+                <th style="display: none;text-align: center;background-color:#00AE72;color: aliceblue; font-size: 20px;">Lợi nhuận</th>
                 <th>CHỈNH SỬA</th>
             </tr>
         </thead>
@@ -371,11 +441,11 @@
         </tbody>
         <tfoot>
             <tr id="totalRow">
-                <td colspan="5" style="text-align: center;background-color:yellow">Tổng cộng:</td>
-                <td id="totalAmount" style="text-align: center;background-color:yellow"></td>
-                <td id="totalDiscount" style="text-align: center;background-color:yellow"></td>
-                <td id="totalNetAmount" style="text-align: center;background-color:yellow"></td>
-                <td id="totalProfit" style="text-align: center;background-color:yellow"></td>
+                <td colspan="4" style="text-align: center;background-color:yellow">Tổng cộng:</td>
+                <td  id="totalAmount" style="text-align: center;background-color:yellow"></td>
+                <td style="display: none;" id="totalDiscount" style="text-align: center;background-color:yellow"></td>
+                <td style="display: none;" id="totalNetAmount" style="text-align: center;background-color:yellow"></td>
+                <td style="display: none;" id="totalProfit" style="text-align: center;background-color:yellow"></td>
             </tr>
         </tfoot>
         
@@ -441,6 +511,7 @@
 
 
 //cập nahatj file đồ chợ
+const productIDInput= document.getElementById('productID');
 const productNameInput2 = document.getElementById("productName");
 const dvtInput2 = document.getElementById("unit");
 const giaGocInput2 = document.getElementById("originalPrice");
@@ -480,7 +551,7 @@ fillInfoButton2.addEventListener("click", function() {
                 const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
                 // Tìm cột có tiêu đề "Tên hàng hoá"
-                const productNameColumnIndex = sheetData[0].indexOf("Tên hàng hoá");
+                const productNameColumnIndex = sheetData[0].indexOf("Mã hàng hoá");
 
                 if (productNameColumnIndex === -1) {
                     console.log("Không tìm thấy cột có tiêu đề 'Tên hàng hoá' trong tệp Excel.");
@@ -489,17 +560,14 @@ fillInfoButton2.addEventListener("click", function() {
 
                 for (let i = 1; i < sheetData.length; i++) {
                     if (sheetData[i][productNameColumnIndex] === productName) {
-                        const dvtIndex = sheetData[0].indexOf("Nhà cung cấp");
-                        const giaGocIndex = sheetData[0].indexOf("Giá nhập");
-                        const giaBanIndex = sheetData[0].indexOf("Đơn giá");
+                        const dvtIndex = sheetData[0].indexOf("Tên hàng hoá");
+                     
+                        const giaBanIndex = sheetData[0].indexOf("Giá bán");
 
                         if (dvtIndex !== -1) {
                             dvtInput2.value = sheetData[i][dvtIndex] || "";
                         }
 
-                        if (giaGocIndex !== -1) {
-                            giaGocInput2.value = sheetData[i][giaGocIndex] || "";
-                        }
 
                         if (giaBanIndex !== -1) {
                             giaBanInput2.value = sheetData[i][giaBanIndex] || "";
@@ -536,7 +604,7 @@ fillInfoButton.addEventListener("click", function() {
         console.log("Tên hàng hoá không tồn tại trong danh sách!");
     }
 });
-    
+        const productID= document.getElementById('productID')
         const productForm = document.getElementById('productForm');
         const productTableBody = document.getElementById('productTableBody');
         const totalAmountElement = document.getElementById('totalAmount');
@@ -547,6 +615,7 @@ fillInfoButton.addEventListener("click", function() {
         let totalAmount = 0;
         let totalDiscount = 0;
         function addProduct() {
+            const productID=document.getElementById('productID').value;
     const productName = document.getElementById('productName').value;
     const unit = document.getElementById('unit').value;
     const quantity = parseFloat(document.getElementById('quantity').value); // Chuyển đổi thành số
@@ -557,6 +626,7 @@ fillInfoButton.addEventListener("click", function() {
     const totalPrice = quantity * unitPrice;
     const discount = (totalPrice * discountPercentage) / 100;
     const product = {
+        id:productID,
         name: productName,
         unit: unit,
         quantity: quantity,
@@ -613,15 +683,16 @@ function calculateTotal() {
 
         const row = document.createElement('tr');
         row.innerHTML = `
+       
             <td style="text-align: center;background-color: aliceblue; font-weight: bold;">${product.name}</td>
             <td style="text-align: center;background-color: aliceblue;font-weight: bold;">${product.unit}</td>
             <td style="text-align: center;background-color: aliceblue;font-weight: bold;">${product.quantity.toLocaleString()}</td>
-            <td style="text-align: center;background-color: aliceblue; font-weight: bold;">${product.originalPrice.toLocaleString()}</td>
+            <td style="display:none;text-align: center;background-color: aliceblue; font-weight: bold;">${product.originalPrice.toLocaleString()}</td>
             <td style="text-align: center;background-color: aliceblue;font-weight: bold;">${product.unitPrice.toLocaleString()}</td>
             <td style="text-align: center;background-color: aliceblue;font-weight: bold;">${product.totalPrice.toLocaleString()}</td>
-            <td style="text-align: center;background-color: aliceblue;font-weight: bold;">${product.discount.toLocaleString()}</td>
-            <td style="text-align: center;background-color: aliceblue;font-weight: bold;">${(product.totalPrice - product.discount).toLocaleString()}</td>
-            <td style="text-align: center;background-color: aliceblue; font-weight: bold;">${product.profit.toLocaleString()}</td>
+            <td style="display:none;text-align: center;background-color: aliceblue;font-weight: bold;">${product.discount.toLocaleString()}</td>
+            <td style="display:none;text-align: center;background-color: aliceblue;font-weight: bold;">${(product.totalPrice - product.discount).toLocaleString()}</td>
+            <td style="display:none;text-align: center;background-color: aliceblue; font-weight: bold;">${product.profit.toLocaleString()}</td>
             <td>
                 <button id='thaotacsua' type="button" onclick="editProduct(${index})">Chỉnh sửa</button>
                 <button id='thaotacxoa' type="button" onclick="deleteProduct(${index})">Xoá</button>
@@ -645,6 +716,7 @@ function calculateTotal() {
 
         function editProduct(index) {
             const product = products[index];
+            document.getElementById('productID').value=product.id;
             document.getElementById('productName').value = product.name;
             document.getElementById('unit').value = product.unit;
             document.getElementById('quantity').value = product.quantity.toLocaleString();
@@ -663,8 +735,8 @@ function calculateTotal() {
         }
 
         function clearForm() {
-            document.getElementById('productName').value = '';
             document.getElementById('unit').value = '';
+            document.getElementById('productName').value = '';
             document.getElementById('quantity').value = '';
             document.getElementById('unitPrice').value = '';
             document.getElementById('originalPrice').value = '';
@@ -687,10 +759,8 @@ const minutes = currentDate.getMinutes();
 // Tạo một chuỗi hiển thị thời gian
 const currentTime = `${hours}:${minutes} - ${day}/${month}/${year}`;
         function exportInvoice() {
-            let name =prompt("Nhập tên khách hàng");
-            let diachi = prompt("Nhập địa chỉ khách hàng");
-            let phone=prompt("Nhập số điện thoại khách hàng");
-            const guess= `${name} | ${diachi} | ${phone}`;
+            let name =document.getElementById('productID').value;
+            const guess= `${name}`;
            
     // Tạo một chuỗi HTML để chứa thông tin hoá đơn
     let invoiceHTML = `
@@ -839,6 +909,140 @@ copyElements.forEach((element) => {
     });
 });
 
+const fillInfoButton3 = document.getElementById("fill-info3");
+
+fillInfoButton3.addEventListener("click", function() {
+    const excelFileInput = document.getElementById("excelFileInput");
+
+    if (excelFileInput.files.length === 0) {
+        alert("Vui lòng tải lên ít nhất một tệp Excel trước.");
+        return;
+    }
+
+    const files = excelFileInput.files;
+
+    // Tạo một danh sách để lưu trữ thông tin cột "Tên hàng hoá"
+    const productNameList = [];
+
+    // Xử lý từng tệp Excel trong danh sách các tệp được chọn
+    for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+
+        if (file) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const data = e.target.result;
+                const workbook = XLSX.read(data, { type: "array" });
+                const sheetName = workbook.SheetNames[0];
+                const sheet = workbook.Sheets[sheetName];
+                const range = sheet['!ref'];
+                const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+                // Tìm cột có tiêu đề "Tên hàng hoá"
+                const productNameColumnIndex = sheetData[0].indexOf("Tên hàng hoá");
+
+                if (productNameColumnIndex === -1) {
+                    console.log("Không tìm thấy cột có tiêu đề 'Tên hàng hoá' trong tệp Excel.");
+                    return;
+                }
+
+                // Lặp qua dữ liệu để lấy thông tin "Tên hàng hoá" và thêm vào danh sách
+                for (let i = 1; i < sheetData.length; i++) {
+                    const productName = sheetData[i][productNameColumnIndex];
+                    if (productName && !productNameList.includes(productName)) {
+                        productNameList.push(productName);
+                    }
+                }
+
+                // Đưa thông tin vào datalist có id ='customerList'
+                const datalist = document.getElementById("customerList");
+                datalist.innerHTML = ""; // Xóa thông tin cũ trước khi thêm mới
+
+                productNameList.forEach(productName => {
+                    const option = document.createElement("option");
+                    option.value = productName;
+                    datalist.appendChild(option);
+                });
+
+                console.log("Thông tin cột 'Tên hàng hoá' đã được cập nhật vào datalist.");
+            };
+
+            reader.readAsArrayBuffer(file);
+        }
+    }
+});
+//ghi âm mã hàng
+if ('webkitSpeechRecognition' in window) {
+    const recognition = new webkitSpeechRecognition();
+    const startButton = document.getElementById('startRecord1');
+    const stopButton = document.getElementById('stopRecord1');
+    const productNameInput = document.getElementById('productName'); // Lấy thẻ input
+
+    // Thiết lập ngôn ngữ
+    recognition.lang = 'vi-VN';
+
+    // Sự kiện khi ghi âm hoàn thành
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        productNameInput.value = transcript; // Cập nhật giá trị của input
+    };
+
+    // Sự kiện khi có lỗi
+    recognition.onerror = function(event) {
+        console.error('Lỗi ghi âm:', event.error);
+    };
+
+    startButton.addEventListener('click', function() {
+      
+            // Bắt đầu ghi âm khi bấm vào nút "Bắt đầu ghi âm"
+            recognition.start();
+        
+    });
+
+    stopButton.addEventListener('click', function() {
+        // Dừng ghi âm khi bấm vào nút "Dừng ghi âm"
+        recognition.stop();
+    });
+} else {
+    console.error('Trình duyệt không hỗ trợ Web Speech API.');
+}
+
+//ghi âm tên hàng
+if ('webkitSpeechRecognition' in window) {
+    const recognition = new webkitSpeechRecognition();
+    const startButton = document.getElementById('startRecord2');
+    const stopButton = document.getElementById('stopRecord2');
+    const unitInput = document.getElementById('unit'); // Lấy thẻ input
+
+    // Thiết lập ngôn ngữ
+    recognition.lang = 'vi-VN';
+
+    // Sự kiện khi ghi âm hoàn thành
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        unitInput.value = transcript; // Cập nhật giá trị của input
+    };
+
+    // Sự kiện khi có lỗi
+    recognition.onerror = function(event) {
+        console.error('Lỗi ghi âm:', event.error);
+    };
+
+    startButton.addEventListener('click', function() {
+      
+            // Bắt đầu ghi âm khi bấm vào nút "Bắt đầu ghi âm"
+            recognition.start();
+        
+    });
+
+    stopButton.addEventListener('click', function() {
+        // Dừng ghi âm khi bấm vào nút "Dừng ghi âm"
+        recognition.stop();
+    });
+} else {
+    console.error('Trình duyệt không hỗ trợ Web Speech API.');
+}
     </script>
 </body>
 </html>
