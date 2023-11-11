@@ -13,7 +13,14 @@
 
     <title>TÍNH HOÁ ĐƠN</title>
     <style>
-  
+        #resetAllButton{
+            width: fit-content;
+            height: fit-content;
+            padding: 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin-left: 25%;
+        }
         body{
             background-color:rgb(24,33,46);
            
@@ -351,15 +358,20 @@
     10%, 90% { opacity: 1; }
 }
 
-
+table{
+    position: fixed;
+    left: 5%;
+    top:10;
+}
     </style>
 </head>
 <body>
     <div id="header">
-        <h2 style="margin-right: 5% ;color: aliceblue;"><a href="URL-cua-lien-ket"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
-        <h2 ><a href="https://cuahangthuykim.github.io/HoaDonKhachHang/"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
-        <h2  style="margin-left:5%"  ><a href="https://cuahangthuykim.github.io/ToaHang/"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
-        <h2  ><a href="URL-cua-lien-ket"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>
+        <h2 style="margin-right: 5%; color: aliceblue;"><a href="URL-cua-lien-ket" target="_blank"><i class="fa-solid fa-house fa-xl" style="color: #ffffff;"></i> TRANG CHỦ</a></h2>
+        <h2><a href="https://cuahangthuykim.github.io/HoaDonKhachHang/" target="_blank"><i class="fa-solid fa-receipt fa-xl" style="color: #ffffff;"></i> NHẬP HOÁ ĐƠN </a></h2>
+        <h2 style="margin-left: 5%;"><a href="https://cuahangthuykim.github.io/ToaHang/" target="_blank"><i class="fa-solid fa-layer-group fa-xl" style="color: #fafafa;"></i> NHẬP HÀNG </a></h2>
+        <h2><a href="URL-cua-lien-ket" target="_blank"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>        
+    </div>
     </div>
     <div id="tinhtienvadoitien">
     <div id="tinhTien">
@@ -437,7 +449,9 @@
     <button style="background-color: #1a00ae;color: #f2f2f2;width:fit-content ;" class="btn" id="them" type="button" onclick="updateProduct()"><i class="fa-regular fa-floppy-disk fa-xl"></i> LƯU THÔNG TIN</button><br><br>
     <button style="font-weight: bold;" class="btn" id="xuat"type="button" onclick="exportInvoice()">XUẤT HOÁ DƠN <i class="fa-solid fa-image"></i></i> </button><br><br>
     <button class="btn" id="xuat-excel" type="button" onclick="exportToExcel()">Xuất hoá đơn Excel <i class="fa-solid fa-file-arrow-down"></i></button><br><br>
-    <div   class="copy">
+    <button  class="btn" style="background-color: #00a8ae;color: #f2f2f2;width:fit-content ;" id="resetAllButton" onclick="resetAll()"><i class="fa-solid fa-rotate fa-2xl"></i> TẠO ĐƠN MỚI</button>
+
+    <div   class="copy" style="display: none;">
         <p style="color:#0056b3;font-weight: bold;">CTK: LE THI PHUONG THUY</p>
         <p style="color:#0056b3;font-weight: bold;">NH1: MB-8500100044007</p>
         <p style="color:#0056b3;font-weight: bold;">NH2: MSB-32001010923656</p>
@@ -485,6 +499,7 @@
     <div id="addSuccessMessage" class="success-message" style="display: none;">
         Thêm hàng thành công!
     </div>
+    
     <script>
     document.getElementById("fill-info-excel").addEventListener("click", function () {
     const excelFileInput = document.getElementById("excelFileInput");
@@ -1060,6 +1075,29 @@ if ('webkitSpeechRecognition' in window) {
 } else {
     console.error('Trình duyệt không hỗ trợ Web Speech API.');
 }
+
+function resetAll() {
+    // Xóa dữ liệu hiện tại
+    products = [];
+    totalAmount = 0;
+    totalDiscount = 0;
+
+    // Làm mới bảng
+    renderTable();
+
+    // Xóa giá trị từ các trường nhập liệu
+    clearForm();
+
+    // Hiển thị thông báo thành công (nếu cần)
+    const successMessage = document.getElementById("successMessage");
+    successMessage.style.display = "block";
+
+    // Ẩn hộp thoại sau 3 giây (3000 miliseconds)
+    setTimeout(() => {
+        successMessage.style.display = "none";
+    }, 3000);
+}
+
     </script>
 </body>
 </html>
