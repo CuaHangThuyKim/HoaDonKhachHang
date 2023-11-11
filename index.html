@@ -317,6 +317,39 @@
         #stopRecord:active{
             background-color: green;
         }
+        .success-message {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    animation: fadeInOut 3s ease-in-out;
+}
+
+@keyframes fadeInOut {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
+
+.success-message {
+    position: fixed;
+    top: 7%;
+    right: 50%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    animation: fadeInOut1 3s ease-in-out;
+}
+
+@keyframes fadeInOut1 {
+    0%, 100% { opacity: 0; }
+    10%, 90% { opacity: 1; }
+}
+
+
     </style>
 </head>
 <body>
@@ -397,7 +430,9 @@
         </div>
         
     </form>
-    <button class="btn" id="them" type="button" onclick="addProduct()"><i class="fa-solid fa-plus"></i> Thêm hàng hoá</button><br><br>
+    <button class="btn" id="them" type="button" onclick="addProduct()"><i class="fa-solid fa-circle-plus fa-2xl"></i> THÊM HÀNG</button><br><br>
+
+    <button style="background-color: #1a00ae;color: #f2f2f2;width:fit-content ;" class="btn" id="them" type="button" onclick="updateProduct()"><i class="fa-regular fa-floppy-disk fa-xl"></i> LƯU THÔNG TIN</button><br><br>
     <button style="font-weight: bold;" class="btn" id="xuat"type="button" onclick="exportInvoice()">XUẤT HOÁ DƠN <i class="fa-solid fa-image"></i></i> </button><br><br>
     <button class="btn" id="xuat-excel" type="button" onclick="exportToExcel()">Xuất hoá đơn Excel <i class="fa-solid fa-file-arrow-down"></i></button><br><br>
     <div   class="copy">
@@ -408,27 +443,7 @@
 
 </div>
 
-    <div id="doiTien">
-        <h1 style="text-align: center;">ĐỔI TIỀN</h1>
-        <div class="form-group">
-            <label for="unit">Nhập tiền Peso:</label>
-            <input type="text" id="peso"placeholder="Nhập Peso" required>
-        </div>
-        <div class="form-group">
-            <label for="unit">Nhập tiền Việt Nam:</label>
-            <input type="text" id="vnd" placeholder="Nhập VND" required>
-        </div>
-        <div class="form-group">
-            <label for="unit">Tỷ giá:</label>
-            <input type="text" id="Tigia"placeholder="Nhập tỉ giá" required>
-        </div>
-        <button id='btnvnd' onClick="pesoQuaVietnam()"> Đổi sang Việt Nam đồng <i class="fa-solid fa-arrow-right-arrow-left"></i></button>
-        <button id='btnps' onClick="vietNamsangPeso()"> Đổi sang Peso <i class="fa-solid fa-arrow-right-arrow-left"></i></button>
-        <h2 id="result">KẾT QUẢ : </h2>
-    </div>
-    <div id="Xuathoadon">
-    
-   
+  
     </div>
 </div>
     </form>
@@ -462,7 +477,12 @@
         </tfoot>
         
     </table>
-    
+    <div id="successMessage" class="success-message" style="display: none;">
+        Cập nhật thành công!
+    </div>
+    <div id="addSuccessMessage" class="success-message" style="display: none;">
+        Thêm hàng thành công!
+    </div>
     <script>
     document.getElementById("fill-info-excel").addEventListener("click", function () {
     const excelFileInput = document.getElementById("excelFileInput");
@@ -662,6 +682,13 @@ fillInfoButton.addEventListener("click", function() {
     calculateTotal()
     renderTable();
     clearForm();
+    const addSuccessMessage = document.getElementById("addSuccessMessage");
+    addSuccessMessage.style.display = "block";
+
+    // Ẩn hộp thoại sau 3 giây (3000 miliseconds)
+    setTimeout(() => {
+        addSuccessMessage.style.display = "none";
+    }, 3000);
 }
 
 
@@ -735,7 +762,7 @@ function calculateTotal() {
             document.getElementById('unitPrice').value = product.unitPrice.toLocaleString();
             discountPercentageInput.value = (product.discount / (product.totalPrice / 100)).toLocaleString();
 
-            products.splice(index, 1);
+           
             calculateTotal()
             renderTable();
         }
@@ -746,6 +773,44 @@ function calculateTotal() {
             renderTable();
         }
 
+        function updateProduct(){
+            const productID = document.getElementById("productID").value;
+    const productName = document.getElementById("productName").value;
+    const unit = document.getElementById("unit").value;
+    const quantity = parseFloat(document.getElementById("quantity").value.replace(',', '')) || 0;
+    const unitPrice = parseFloat(document.getElementById("unitPrice").value.replace(',', '')) || 0;
+
+    // Tìm sản phẩm trong mảng products dựa trên productID
+    const existingProductIndex = products.findIndex((product) => product.id === productID);
+
+    // Nếu sản phẩm đã tồn tại, cập nhật thông tin
+    if (existingProductIndex !== -1) {
+        products[existingProductIndex].name = productName;
+        products[existingProductIndex].unit = unit;
+        products[existingProductIndex].quantity = quantity;
+        products[existingProductIndex].unitPrice = unitPrice;
+        products[existingProductIndex].totalPrice = quantity * unitPrice;
+
+        // Tính lại tổng tiền và hiển thị
+        calculateTotal();
+        renderTable();
+        const successMessage = document.getElementById("successMessage");
+    successMessage.style.display = "block";
+
+    // Ẩn hộp thoại sau 3 giây (3000 miliseconds)
+    setTimeout(() => {
+        successMessage.style.display = "none";
+    }, 3000);
+    }
+
+    // Xóa giá trị từ các trường nhập liệu sau khi cập nhật
+    document.getElementById("productID").value = "";
+    document.getElementById("productName").value = "";
+    document.getElementById("unit").value = "";
+    document.getElementById("quantity").value = "";
+    document.getElementById("unitPrice").value = "";
+    discountPercentageInput.value = "";
+        }
         function clearForm() {
             document.getElementById('unit').value = '';
             document.getElementById('productName').value = '';
