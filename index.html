@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
@@ -13,6 +14,27 @@
 
     <title>TÍNH HOÁ ĐƠN</title>
     <style>
+        #xoatoanbo{
+            border-radius: 10%;
+            background-color: rgb(119, 20, 20);
+            color: white;
+            padding: 10px;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+        #xoatoanbo:hover{
+            opacity: 0.5;
+        }
+        .xoaThongTinAll{
+            background-color: red;
+            margin-left: 5px;
+            padding: 5px;
+            border-radius: 40%;
+            cursor: pointer;
+        }
+        .xoaThongTinAll:hover{
+            opacity: 0.5;
+        }
         #resetAllButton{
             width: fit-content;
             height: fit-content;
@@ -20,6 +42,10 @@
             border-radius: 50px;
             font-weight: bold;
             margin-left: 25%;
+            cursor: pointer;
+        }
+        #resetAllButton:hover{
+            opacity: 0.5;
         }
         body{
             background-color:rgb(24,33,46);
@@ -173,11 +199,27 @@
             font-size: 15px;
             border-color: aliceblue;
         }
+        .thaotac{
+            cursor: pointer;
+        }
+        .thaotac:hover{
+            opacity: 0.5;
+        }
         #thaotacsua{
+          padding: 10px;
             background-color: greenyellow;
+            border-radius: 50px;
+
         }
         #thaotacxoa{
+            border-radius: 50px;
             background-color: red;
+            padding: 10px;
+        }
+        #thaotacluu{
+            border-radius: 50px;
+            background-color: rgb(251, 255, 0);
+            padding: 10px;
         }
         #btnvnd{
             background-color: red;
@@ -301,16 +343,20 @@
             background-color: green;
         }
         #startRecord,#startRecord1,#startRecord2,#startRecord3,#startRecord4,#startRecord5,#startRecord6{
-            background-color: rgb(189, 203, 214);
+            background-color: rgb(8, 69, 116);
             border-radius: 50%;
             cursor: pointer;
             margin-left: 5px;
             margin-right: 5px;
+            padding: 5px;
+            border-radius: 50%;
         }
         #stopRecord,#stopRecord1,#stopRecord2,#stopRecord3,#stopRecord4,#stopRecord6,#stopRecord5{
-            background-color: rgb(189, 203, 214);
+            background-color: rgb(228, 228, 20);
             border-radius: 10px;
             cursor: pointer;
+            padding: 7px;
+            border-radius: 50%;
         }
         #startRecord:hover{
             opacity: 0.6;
@@ -358,11 +404,27 @@
     10%, 90% { opacity: 1; }
 }
 
+.success-message {
+    position: fixed;
+    top: 7%;
+    right: 50%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+    animation: fadeInOut1 3s ease-in-out;
+    height: 30px;
+    font-size: 20px;
+}
+
 table{
     position: fixed;
-    left: 5%;
+    left: 6%;
     top:10;
 }
+
+
+
     </style>
 </head>
 <body>
@@ -373,6 +435,7 @@ table{
         <h2><a href="URL-cua-lien-ket" target="_blank"><i class="fa-solid fa-magnifying-glass fa-xl" style="color: #ffffff;"></i> TRA CỨU MÃ HÀNG </a></h2>        
     </div>
     </div>
+
     <div id="tinhtienvadoitien">
     <div id="tinhTien">
     <h1 style="text-align: center;">TÍNH TIỀN HÀNG</h1>
@@ -397,6 +460,7 @@ table{
                 <option value="PHƯƠNG"></option>
                 <option value="HOA"></option>
             </datalist><br>
+            <button class="xoaThongTinAll" id="xoaThongTin" onclick="deleteInfo()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
     </div>
     <div class="form-group">
         <label for="productName">MÃ HÀNG HOÁ:</label>
@@ -404,8 +468,9 @@ table{
             <datalist style="font-weight: bold;cursor: pointer;" id="productList">
            
             </datalist><br>
-            <button id="startRecord1"><i class="fa-solid fa-microphone" style="color: #6f7785;"></i></button>
-            <button id="stopRecord1"><i class="fa-solid fa-stop" style="color: #848c9a;"></i></button>
+            <button id="startRecord1"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+            <button id="stopRecord1"><i class="fa-solid fa-stop fa-xl" style="color: #000205;"></i></button>
+            <button class="xoaThongTinAll" id="xoaThongTin2" onclick="deleteInfo1()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
     </div>
     <button id="fill-info2"style="margin-left:40%;height:30PX;font-weight:bold">ĐIỀN THÔNG TIN THEO MÃ</button><br><br>
     <div class="form-group">
@@ -414,8 +479,9 @@ table{
         <datalist style="font-weight: bold; cursor: pointer;" id="customerList">
             <!-- Các option sẽ được thêm tự động bởi mã JavaScript -->
         </datalist><br>
-        <button id="startRecord2"><i class="fa-solid fa-microphone" style="color: #6f7785;"></i></button>
-        <button id="stopRecord2"><i class="fa-solid fa-stop" style="color: #848c9a;"></i></button>
+        <button id="startRecord2"><i class="fa-solid fa-microphone fa-xl" style="color: #ffffff;"></i></button>
+        <button id="stopRecord2"><i class="fa-solid fa-stop fa-xl" style="color: #000205;"></i></button>
+        <button class="xoaThongTinAll" id="xoaThongTin3" onclick="deleteInfo2()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
     </div>
     
         
@@ -427,15 +493,19 @@ table{
         <div class="form-group">
             <label for="quantity">Số lượng:</label>
             <input type="number" id="quantity" placeholder="Nhập số lượng đơn hàng"required>
+            <button class="xoaThongTinAll" id="xoaThongTin4" onclick="deleteInfo3()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
         </div>
         <div  style="display: none;" class="form-group">
             <label for="originalPrice">Giá nhập:</label>
             <input type="number" id="originalPrice" placeholder="Nhập giá gốc" required>
+            <button class="xoaThongTinAll" id="xoaThongTin1" ><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
         </div>
         
         <div  class="form-group">
             <label for="unitPrice">Đơn giá:</label>
             <input type="number" id="unitPrice"placeholder="Nhập giá bán" required>
+            <button class="xoaThongTinAll" id="xoaThongTin5" onclick="deleteInfo4()"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+            <button id="xoatoanbo" onclick="clearForm1()">Xoá Toàn Bộ</button>
         </div>
         
         <div  style="display: none;" class="form-group">
@@ -446,16 +516,12 @@ table{
     </form>
     <button class="btn" id="them" type="button" onclick="addProduct()"><i class="fa-solid fa-circle-plus fa-2xl"></i> THÊM HÀNG</button><br><br>
 
-    <button style="background-color: #1a00ae;color: #f2f2f2;width:fit-content ;" class="btn" id="them" type="button" onclick="updateProduct()"><i class="fa-regular fa-floppy-disk fa-xl"></i> LƯU THÔNG TIN</button><br><br>
+    
     <button style="font-weight: bold;" class="btn" id="xuat"type="button" onclick="exportInvoice()">XUẤT HOÁ DƠN <i class="fa-solid fa-image"></i></i> </button><br><br>
     <button class="btn" id="xuat-excel" type="button" onclick="exportToExcel()">Xuất hoá đơn Excel <i class="fa-solid fa-file-arrow-down"></i></button><br><br>
     <button  class="btn" style="background-color: #00a8ae;color: #f2f2f2;width:fit-content ;" id="resetAllButton" onclick="resetAll()"><i class="fa-solid fa-rotate fa-2xl"></i> TẠO ĐƠN MỚI</button>
 
-    <div   class="copy" style="display: none;">
-        <p style="color:#0056b3;font-weight: bold;">CTK: LE THI PHUONG THUY</p>
-        <p style="color:#0056b3;font-weight: bold;">NH1: MB-8500100044007</p>
-        <p style="color:#0056b3;font-weight: bold;">NH2: MSB-32001010923656</p>
-    </div>
+    
 
 </div>
 
@@ -493,13 +559,16 @@ table{
         </tfoot>
         
     </table>
+</div>
     <div id="successMessage" class="success-message" style="display: none;">
         Cập nhật thành công!
     </div>
     <div id="addSuccessMessage" class="success-message" style="display: none;">
         Thêm hàng thành công!
     </div>
-    
+    <div id="editMessage" class="success-message" style="display: none;">
+       Vui lòng điền thông tin ! 
+    </div>
     <script>
     document.getElementById("fill-info-excel").addEventListener("click", function () {
     const excelFileInput = document.getElementById("excelFileInput");
@@ -738,6 +807,7 @@ function calculateTotal() {
                 
 
         const row = document.createElement('tr');
+        row.classList.add(index % 2 === 0 ? 'even-row' : 'odd-row');  // Add a class based on the index
         row.innerHTML = `
        
             <td style="text-align: center;background-color: aliceblue; font-weight: bold;">${product.name}</td>
@@ -750,8 +820,9 @@ function calculateTotal() {
             <td style="display:none;text-align: center;background-color: aliceblue;font-weight: bold;">${(product.totalPrice - product.discount).toLocaleString()}</td>
             <td style="display:none;text-align: center;background-color: aliceblue; font-weight: bold;">${product.profit.toLocaleString()}</td>
             <td>
-                <button id='thaotacsua' type="button" onclick="editProduct(${index})">Chỉnh sửa</button>
-                <button id='thaotacxoa' type="button" onclick="deleteProduct(${index})">Xoá</button>
+                <button class='thaotac' id='thaotacsua' type="button" onclick="editProduct(${index})"><i class="fa-solid fa-pen-to-square fa-xl"></i></button>
+                <button class='thaotac' id='thaotacxoa' type="button" onclick="deleteProduct(${index})"><i class="fa-solid fa-trash fa-xl" style="color: #ffffff;"></i></button>
+                <button class='thaotac' id='thaotacluu' type="button" onclick="saveProduct(${index})"><i class="fa-solid fa-floppy-disk fa-2xl" style="color: #511f1f;"></i></button>
             </td>
         `;
         
@@ -782,6 +853,13 @@ function calculateTotal() {
            
             calculateTotal()
             renderTable();
+            const successMessage = document.getElementById("editMessage");
+    successMessage.style.display = "block";
+
+    // Ẩn hộp thoại sau 3 giây (3000 miliseconds)
+    setTimeout(() => {
+        successMessage.style.display = "none";
+    }, 3000);
         }
 
         function deleteProduct(index) {
@@ -837,7 +915,15 @@ function calculateTotal() {
             discountPercentageInput.value = 0;
         }
         
-
+        function clearForm1() {
+            document.getElementById('productID').value='';
+            document.getElementById('unit').value = '';
+            document.getElementById('productName').value = '';
+            document.getElementById('quantity').value = '';
+            document.getElementById('unitPrice').value = '';
+            document.getElementById('originalPrice').value = '';
+            discountPercentageInput.value = 0;
+        }
         // Tạo một đối tượng Date để lấy thời gian hiện tại
     const currentDate = new Date();
 
@@ -1022,7 +1108,7 @@ if ('webkitSpeechRecognition' in window) {
 
     // Sự kiện khi có lỗi
     recognition.onerror = function(event) {
-        console.error('Lỗi ghi âm:', event.error);
+       alert.error('Lỗi ghi âm:', event.error);
     };
 
     startButton.addEventListener('click', function() {
@@ -1037,7 +1123,7 @@ if ('webkitSpeechRecognition' in window) {
         recognition.stop();
     });
 } else {
-    console.error('Trình duyệt không hỗ trợ Web Speech API.');
+   alert.error('Trình duyệt không hỗ trợ Web Speech API.');
 }
 
 //ghi âm tên hàng
@@ -1058,7 +1144,7 @@ if ('webkitSpeechRecognition' in window) {
 
     // Sự kiện khi có lỗi
     recognition.onerror = function(event) {
-        console.error('Lỗi ghi âm:', event.error);
+       alert.error('Lỗi ghi âm:', event.error);
     };
 
     startButton.addEventListener('click', function() {
@@ -1073,7 +1159,7 @@ if ('webkitSpeechRecognition' in window) {
         recognition.stop();
     });
 } else {
-    console.error('Trình duyệt không hỗ trợ Web Speech API.');
+   alert.error('Trình duyệt không hỗ trợ Web Speech API.');
 }
 
 function resetAll() {
@@ -1098,6 +1184,67 @@ function resetAll() {
     }, 3000);
 }
 
+//xoa thong tin input
+// xoa thong tin khach hang
+function deleteInfo(){
+    document.getElementById('productID').value='';
+}
+
+//xoa thong tin ma hang hoa
+function deleteInfo1(){
+    document.getElementById('productName').value='';
+}
+
+//xoa thong tin hang hoa
+function deleteInfo2(){
+    document.getElementById('unit').value='';
+}
+
+//xoa thong tin soos luowngj
+function deleteInfo3(){
+    document.getElementById('quantity').value='';
+}
+
+//xoa thong tin don gia
+function deleteInfo4(){
+    document.getElementById('unitPrice').value='';
+}
+//
+function saveProduct(index) {
+    const productID = document.getElementById("productID").value;
+    const productName = document.getElementById("productName").value;
+    const unit = document.getElementById("unit").value;
+    const quantity = parseFloat(document.getElementById("quantity").value.replace(',', '')) || 0;
+    const unitPrice = parseFloat(document.getElementById("unitPrice").value.replace(',', '')) || 0;
+
+    // Tìm sản phẩm trong mảng products dựa trên index
+    const existingProduct = products[index];
+
+    // Nếu sản phẩm đã tồn tại, cập nhật thông tin
+    if (existingProduct) {
+        existingProduct.name = productName;
+        existingProduct.unit = unit;
+        existingProduct.quantity = quantity;
+        existingProduct.unitPrice = unitPrice;
+        existingProduct.totalPrice = quantity * unitPrice;
+    }
+
+    // Tính lại tổng tiền và hiển thị
+    calculateTotal();
+    renderTable();
+
+    // Thêm logic hiển thị thông báo thành công nếu cần
+
+    // Xóa giá trị từ các trường nhập liệu sau khi cập nhật
+    clearForm();
+    const successMessage = document.getElementById("successMessage");
+    successMessage.style.display = "block";
+
+    // Ẩn hộp thoại sau 3 giây (3000 miliseconds)
+    setTimeout(() => {
+        successMessage.style.display = "none";
+    }, 3000);
+}
     </script>
 </body>
 </html>
